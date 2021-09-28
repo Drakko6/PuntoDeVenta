@@ -1,0 +1,13 @@
+@media print {
+  .oculto-impresion,
+  .oculto-impresion * {
+    display: none !important;
+  }
+}
+
+.MuiAccordionSummary-content.Mui-expanded {
+  margin: 0 !important;
+}
+.MuiAccordionSummary-root.Mui-expanded {
+  min-height: auto !important;
+}
