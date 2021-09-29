@@ -8,6 +8,7 @@ const Impresion = ({ setImprimir, ordenesImprimir, total }) => {
       window.print();
       setImprimir(false);
     }, 500);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -148,16 +149,6 @@ const Impresion = ({ setImprimir, ordenesImprimir, total }) => {
         ¡GRACIAS POR SU COMPRA!
         <br />
       </p>
-
-      {/* <button
-        onClick={() => {
-          window.print();
-          setImprimir(false);
-        }}
-        className="oculto-impresion bg-teal-500 text-center mt-10 p-3 font-bold self-center ml-6 "
-      >
-        IMPRIMIR
-      </button> */}
     </div>
   );
 };

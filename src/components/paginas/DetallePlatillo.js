@@ -17,8 +17,7 @@ const DetallePlatillo = ({
 
   //state para cantidades
   const [cantidad, setCantidad] = useState(0);
-  const [total, setTotal] = useState(0);
-  const [observaciones, setObservaciones] = useState("");
+  const [observaciones] = useState("");
   //const [modalAbierto, setModalAbierto] = useState(false);
 
   //Context de pedido
@@ -27,7 +26,6 @@ const DetallePlatillo = ({
   //En cuanto carga, calcular la cantidad a pagar
   useEffect(() => {
     if (platillo) {
-      calcularTotal();
     }
   }, [cantidad, pedido]);
 
@@ -53,12 +51,6 @@ const DetallePlatillo = ({
     imagen = platillo.imagen;
     precio = platillo.precio;
   }
-
-  //CALCULA EL TOTAL DEL PLATILLO
-  const calcularTotal = () => {
-    const totalPagar = precio * cantidad;
-    setTotal(totalPagar);
-  };
 
   //decrementa en uno
   const decrementarUno = () => {
@@ -101,13 +93,13 @@ const DetallePlatillo = ({
           <img
             src={imagen}
             alt="imagen de platillo"
-            className=" w-full object-cover left-0 lg:h-48 h-56 cursor-pointer active:opacity-75 "
+            className=" w-full object-cover left-0 lg:h-32 h-32 cursor-pointer active:opacity-75 "
             onClick={() => incrementarUno()}
           />
         </div>
 
-        <div className="pt-3 pb-5 mb-3">
-          <p className="font-bold text-sm text-center text-yellow-700 ">
+        <div className="pt-2 h-16  mb-2">
+          <p className="font-bold text-sm text-center text-yellow-700  h-">
             {nombre}
           </p>
         </div>

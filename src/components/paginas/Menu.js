@@ -16,7 +16,6 @@ const Menu = () => {
     });
   };
 
-  const [platillos, setPLatillos] = useState([]);
   const [categorias, setCategorias] = useState([]);
   const [platillosAgrupados, setPlatillosAgrupados] = useState([]);
 
@@ -90,7 +89,6 @@ const Menu = () => {
 
             //ordenar los arreglos de cada categoría
             //en orden alfabético
-
             platillosAgrupados.forEach((categoria) => {
               categoria.platillos = _.orderBy(
                 categoria.platillos,
@@ -101,35 +99,18 @@ const Menu = () => {
 
             setCategorias(categorias);
 
-            //setPLatillos(platillos);
-
             setPlatillosAgrupados(platillosAgrupados);
-            // //ALMACENA RESULTADOS EN EL STATE
-            // setPLatillos(platillos);
           }
         })
         .catch((err) => {
           console.log(err);
         });
-
-      //firebase.db.collection("productos").onSnapshot(handleSnapshot);
     };
     if (usuario) {
       obtenerPlatillos();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // //Snapshot nos permite utilizar la BD en tiempo real
-  // function handleSnapshot(snapshot) {
-  //   const platillos = snapshot.docs.map((doc) => {
-  //     return {
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     };
-  //   });
-  //   //ALMACENA RESULTADOS EN EL STATE
-  //   setPLatillos(platillos);
-  // }
 
   const mostrarCategoria = (categoria) => {
     return (
@@ -192,7 +173,7 @@ const Menu = () => {
                 Ir Arriba
               </button>
             ) : null}
-            <div className="sticky top-0 bg-white  md:block  md:overflow-visible flex flex-no-wrap overflow-x-scroll md:flex-wrap h-10  align-middle text-center text-sm">
+            <div className="sticky top-0 bg-white  md:block  md:overflow-visible flex flex-no-wrap overflow-x-scroll md:flex-wrap h-16  align-middle text-center text-sm">
               {categorias.map((categoria, i) => (
                 <Fragment key={i}>{mostrarCategoria(categoria)}</Fragment>
               ))}

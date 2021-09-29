@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import DetallePlatillo from "../paginas/DetallePlatillo";
 // import { useBeforeunload } from "react-beforeunload";
 
-// import _ from "lodash";
+import _ from "lodash";
 // import { useNavigate } from "react-router-dom";
 
 import Modal from "../ui/Modal";
@@ -62,6 +62,14 @@ const MenuMostrar = () => {
         (producto) => producto.existencia === true
       );
 
+      platillos = _.orderBy(
+        platillos,
+        [
+          (platillo) => platillo.categoria.toUpperCase(),
+          (platillo) => platillo.nombre.toUpperCase(),
+        ],
+        "desc"
+      );
       setPLatillos(platillos);
     }
   }
@@ -88,14 +96,14 @@ const MenuMostrar = () => {
   return (
     <>
       {usuario ? (
-        <div className="h-screen bg-green-100">
+        <div className="h-screen bg-green-100 overflow-auto">
           <div className="sticky top-0 grid"></div>
 
-          <div className="grid grid-cols-6  mb-2">
+          <div className="grid grid-cols-7  mb-2">
             {platillos.map((platillo, i) => (
               <div
                 key={i}
-                className=" p-2"
+                className="p-2"
                 onClick={() => {
                   seleccionarPlatillo(platillo);
                 }}
@@ -121,9 +129,9 @@ const MenuMostrar = () => {
             <ModalResumen setModalAbierto={setModalAbierto} cerrar={setOpen} />
           ) : null}
 
-          <div className="absolute bottom-0 p-8 flex justify-center w-3/4">
+          <div className="absolute mb-5 bottom-0 right-0 p-5 mr-5 flex justify-end w-1/4">
             <button
-              className="col-span-2 text-xl  text-white bg-green-500 hover:bg-green-200 active:bg-green-800 hover:text-black sticky top-0 text-center p-4 ml-1"
+              className="text-xl  text-white bg-green-500 hover:bg-green-200 active:bg-green-800 hover:text-black sticky top-0 text-center p-4 ml-1"
               onClick={() => ordenarPedido()}
             >
               Realizar Pedido

@@ -16,6 +16,7 @@ import {
   GUARDAR_CLIENTE_ACTUAL,
   GUARDAR_COMANDA,
   OBTENER_COMANDAS_DIA,
+  OBTENER_CLIENTES,
 } from "../../types";
 
 export default (state, action) => {
@@ -152,6 +153,11 @@ export default (state, action) => {
       return {
         ...state,
         clienteActual: action.payload,
+      };
+    case OBTENER_CLIENTES:
+      return {
+        ...state,
+        clientes: action.payload,
       };
 
     default:

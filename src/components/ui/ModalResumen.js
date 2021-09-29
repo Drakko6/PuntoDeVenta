@@ -13,7 +13,8 @@ const ModalResumen = ({ setModalAbierto, cerrar }) => {
         </div>
       </div>
       <div
-        className="opacity-25 fixed inset-0 z-40 bg-black"
+        className=" fixed inset-0 z-40"
+        style={{ opacity: 0.25, backgroundColor: "rgba(0, 0, 0, 0.25)" }}
         onClick={() => setModalAbierto(false)}
       />
     </>

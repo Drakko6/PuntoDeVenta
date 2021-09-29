@@ -25,6 +25,7 @@ const Ordenes = () => {
     guardarIDComanda,
     obtenerComanda,
     guardarClienteActual,
+    obtenerClientes,
   } = useContext(PedidoContext);
 
   //context con las operaciones de firebase
@@ -44,6 +45,7 @@ const Ordenes = () => {
     };
 
     obtenerOrdenes();
+    obtenerClientes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

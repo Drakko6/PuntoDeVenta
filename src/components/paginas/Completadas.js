@@ -1,17 +1,22 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from "react";
 import { FirebaseContext } from "../../firebase";
+import PedidoContext from "../../context/pedidos/pedidosContext";
 
 import _ from "lodash";
 import ComandaCompletada from "../ui/ComandaCompletada";
 
 const Completadas = () => {
+  const { clientes, obtenerClientes } = useContext(PedidoContext);
+
   //context con las operaciones de firebase
   const { firebase, usuario } = useContext(FirebaseContext);
 
   //state de ordenes
   const [ordenes, setOrdenes] = useState([]);
   const [comandas, setComandas] = useState([]);
+  const [totalDia, setTotalDia] = useState(0);
+  const [totalOrdenes, setTotalOrdenes] = useState(0);
 
   //state de texto
   const [texto, setTexto] = useState("Ordenar por Mesa");
@@ -50,6 +55,10 @@ const Completadas = () => {
   };
 
   useEffect(() => {
+    obtenerClientes();
+  }, []);
+
+  useEffect(() => {
     if (!fecha) {
       let hoy = new Date();
       hoy.setHours(0, 0, 0, 0);
@@ -76,13 +85,35 @@ const Completadas = () => {
           ...doc.data(),
         };
       });
-
+      if (diaObj.length === 0) {
+        setTotalDia(0);
+        setTotalOrdenes(0);
+        setComandas([]);
+        return;
+      }
       let comandas = diaObj[0].comandas;
+
+      if (comandas.length === 0 || diaObj.length === 0) {
+        setTotalDia(0);
+        setTotalOrdenes(0);
+        return;
+      }
 
       //filtrar las completadas
       comandas = comandas.filter((orden) => orden.activa === false);
 
       setComandas(comandas);
+
+      let total = 0;
+      let ordenes = 0;
+
+      comandas.forEach((com) => {
+        ordenes += com.ordenes.length;
+        total += com.total;
+      });
+
+      setTotalDia(total);
+      setTotalOrdenes(ordenes);
     } catch (error) {
       //console.log(error);
       setComandas([]);
@@ -111,28 +142,69 @@ const Completadas = () => {
 
             <form>
               <label className="text-xl font-light mb-3">
-                Selecciona la fecha{" "}
+                Selecciona la fecha:{"  "}
               </label>
               <input
                 type="date"
                 name="fecha"
-                className="text-2xl font-bold mb-5  text-blue-700"
+                className="text-2xl font-bold mb-5  text-blue-700 text-center"
                 lang="es"
                 value={dia}
                 onChange={actualizaState}
               />
             </form>
-
-            {/* <button className="bg-teal-600   p-2" onClick={() => agruparMesa()}>
-              <p className="text-white">{texto}</p>
-            </button> */}
           </div>
 
-          <div className="flex flex-wrap -mx-3">
-            {comandas.map((comanda, i) => (
-              <ComandaCompletada key={i} comanda={comanda} />
-            ))}
-          </div>
+          {comandas.length > 0 ? (
+            <>
+              <div className="grid grid-cols-6 p-3 items-center text-center">
+                <h1 className="text-yellow-600 text-lg font-bold col-span-1">
+                  Cliente
+                </h1>
+                <p className="text-yellow-600 text-lg font-bold col-span-2 ">
+                  Domicilio
+                </p>
+                <p className="text-yellow-600 text-lg font-bold col-span-1">
+                  Hora:
+                </p>
+
+                <p className="text-yellow-600 text-lg font-bold col-span-1 ">
+                  Total
+                </p>
+
+                <p className="text-yellow-600 text-lg font-bold col-span-1 ">
+                  Órdenes
+                </p>
+              </div>
+              <div className="block ">
+                {comandas.map((comanda, i) => (
+                  <ComandaCompletada
+                    key={i}
+                    comanda={comanda}
+                    cliente={clientes.find(
+                      (cl) => cl.telefono === comanda.cliente
+                    )}
+                  />
+                ))}
+              </div>
+
+              <div className="p-3 grid grid-cols-6 items-center">
+                <h1 className="text-blue-700  text-xl font-bold col-span-4 text-right">
+                  TOTALES:
+                </h1>
+
+                <h1 className="text-black  text-xl font-bold col-span-1 text-center">
+                  ${totalDia}
+                </h1>
+
+                <h1 className="text-black  text-lg font-bold col-span-1 text-center">
+                  {comandas.length} comandas, {totalOrdenes} órdenes
+                </h1>
+              </div>
+            </>
+          ) : (
+            <h2 className="text-center font-bold mt-16">Aún no hay comandas</h2>
+          )}
         </>
       ) : (
         <h1 className="text-center flex">

@@ -29,7 +29,7 @@ const Sidebar = () => {
   };
   return (
     <>
-      <div className="hidden md:block md:w-2/5 xl:w-1/5 bg-gray-800 oculto-impresion">
+      <div className="hidden md:block md:w-1/5 xl:w-1/6 bg-gray-800 oculto-impresion sticky top-0 h-screen">
         <div className="p-6">
           <p className="uppercase text-white text-xl tracking-wide text-center font-bold">
             Tortas Chícharo
@@ -51,9 +51,9 @@ const Sidebar = () => {
             </NavLink>
           </nav>
 
-          <p className="mt-3 text-gray-600 text-center ">
+          {/* <p className="mt-3 text-gray-600 text-center ">
             Administra tu restaurant
-          </p>
+          </p> */}
 
           <nav className="mt-5">
             <NavLink
@@ -94,14 +94,6 @@ const Sidebar = () => {
               to="/mas-vendidos"
             >
               Más Vendidos
-            </NavLink>
-            <NavLink
-              className="p-1 text-gray-400 block hover:bg-yellow-500 hover:text-gray-900"
-              activeClassName="text-yellow-500"
-              end
-              to="/totales"
-            >
-              Totales
             </NavLink>
           </nav>
 

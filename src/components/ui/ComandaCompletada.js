@@ -1,15 +1,22 @@
 import React, { Fragment } from "react";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Divider from "@material-ui/core/Divider";
 
-const ComandaCompletada = ({ comanda }) => {
+import Orden from "./Orden";
+
+const ComandaCompletada = ({ comanda, cliente }) => {
   return (
-    <div className=" sm: w-5/12 lg:w-1/4 mb-4 ml-3 ">
-      <div className="p-3 shadow-md bg-white">
-        <h1 className="text-yellow-600 text-lg font-bold">
-          Cliente: {comanda.cliente}
-        </h1>
-        {/* <p className="text-gray-700 font-bold">Mesa: {comanda.mesa}</p> */}
-        <p className="text-gray-700  text-sm font-light">
-          Hora:{" "}
+    <div className=" mb-2 ml-3 ">
+      <div className="grid grid-cols-6 p-2 shadow-md bg-white text-center items-center">
+        <p className="text-gray-700 font-bold col-span-1">{cliente.nombre}</p>
+        <p className="text-gray-700 font-bold col-span-2">
+          {cliente.domicilio}
+        </p>
+        <p className="text-gray-700 font-bold col-span-1">
           {new Date(comanda.creada).toLocaleString("es-ES", {
             hour12: true,
             hour: "2-digit",
@@ -17,21 +24,35 @@ const ComandaCompletada = ({ comanda }) => {
           })}
         </p>
 
-        {comanda.ordenes.map((orden, i) => (
-          <Fragment key={i}>
-            <p className="text-gray-600">{orden.num}</p>
+        <p className="text-gray-700 font-bold col-span-1">$ {comanda.total}</p>
 
-            {/* TO DO:mapear orden.orden en acordeon */}
-            {/* <p className="text-gray-700 font-bold">
-              Observaciones:{" "}
-              <span className="text-gray-600 font-light">
-                {platillos.observaciones}
-              </span>
-            </p> */}
-          </Fragment>
-        ))}
+        <div className="flex  col-span-1">
+          <Accordion style={{ width: "100%" }}>
+            <AccordionSummary
+              style={{ margin: 0 }}
+              expandIcon={<ExpandMoreIcon />}
+            >
+              <Typography>
+                {comanda.ordenes.length}{" "}
+                {comanda.ordenes.length > 1 ? "Órdenes" : "Orden"}
+              </Typography>
+            </AccordionSummary>
+            <AccordionDetails
+              style={{ display: "block", width: "100%", padding: 0 }}
+            >
+              {comanda.ordenes.map((orden, i) => (
+                <Fragment key={i}>
+                  <div className="flex">
+                    <p className="font-bold p-2 text-yellow-600">{orden.num}</p>
+                    <Orden key={i} orden={orden} />
+                  </div>
 
-        <p className="text-gray-700 font-bold">Total: $ {comanda.total}</p>
+                  <Divider />
+                </Fragment>
+              ))}
+            </AccordionDetails>
+          </Accordion>
+        </div>
       </div>
     </div>
   );

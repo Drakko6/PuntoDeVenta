@@ -22,6 +22,7 @@ import {
   GUARDAR_CLIENTE_ACTUAL,
   GUARDAR_COMANDA,
   OBTENER_COMANDAS_DIA,
+  OBTENER_CLIENTES,
 } from "../../types";
 
 const PedidoState = (props) => {
@@ -43,6 +44,7 @@ const PedidoState = (props) => {
     banderaOrden: false,
     clienteActivo: "",
     clienteActual: null,
+    clientes: [],
   };
 
   //useReducer con dispath para ejecutar funciones
@@ -237,20 +239,6 @@ const PedidoState = (props) => {
             ...doc.data(),
           };
         });
-
-        // //consultar firebase
-        // firebase.db
-        //   .collection("dias")
-        //   .where("dia", "==", hoy) //solo los sean de hoy
-        //   .onSnapshot(manejarSnapshot);
-
-        // function manejarSnapshot(snapshot) {
-        //   let comandasObj = snapshot.docs.map((doc) => {
-        //     return {
-        //       id: doc.id,
-        //       ...doc.data(),
-        //     };
-        //   });
         let comandas = [];
         let contComandas = 0;
         if (comandasObj.length > 0 && comandasObj[0].comandas) {
@@ -266,6 +254,28 @@ const PedidoState = (props) => {
             },
           });
         }
+      });
+  };
+
+  const obtenerClientes = async () => {
+    await firebase.db
+      .collection("clientes")
+      .get()
+      .then((querySnapshot) => {
+        const clientes = querySnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+
+        dispatch({
+          type: OBTENER_CLIENTES,
+          payload: clientes[0].clientes,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   };
 
@@ -305,6 +315,8 @@ const PedidoState = (props) => {
         comandasDia: state.comandasDia,
         contComandas: state.contComandas,
         guardarComanda,
+        clientes: state.clientes,
+        obtenerClientes,
       }}
     >
       {props.children}

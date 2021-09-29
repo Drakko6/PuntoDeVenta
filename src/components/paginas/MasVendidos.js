@@ -29,6 +29,7 @@ const MasVendidos = () => {
     if (usuario) {
       obtenerPlatillos();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   //Snapshot nos permite utilizar la BD en tiempo real
@@ -61,9 +62,7 @@ const MasVendidos = () => {
           <h1 className=" flex  justify-center text-3xl font-light mb-4">
             Productos más vendidos
           </h1>
-          {/*{platillos.map((platillo) => (
-        <Vendido key={platillo.id} platillo={platillo} />
-      ))}*/}
+
           <div className="w-full">
             <ResponsiveContainer height={500} width="90%">
               <BarChart

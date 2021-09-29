@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState, useContext } from "react";
 import { FirebaseContext } from "../../firebase";
 
@@ -121,7 +122,7 @@ const Totales = () => {
             onChange={actualizaState}
           />
         </form>
-        <div className="lg: w-7/12 xl: w-9/12 pl-5">
+        <div className="lg: w-7/12 xl:w-9/12 pl-5">
           <p className="text-gray-600 mb-4"></p>
 
           <p className=" text-xl text-gray-600 mb-4 justify-center">

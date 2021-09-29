@@ -13,12 +13,8 @@ import MenuMostrar from "./components/paginas/MenuMostrar";
 import Ordenes from "./components/paginas/Ordenes";
 import Completadas from "./components/paginas/Completadas";
 import MasVendidos from "./components/paginas/MasVendidos";
-import Totales from "./components/paginas/Totales";
 
-import DetallePlatillo from "./components/paginas/DetallePlatillo";
-import ResumenPedido from "./components/paginas/ResumenPedido";
 import ProgresoPedido from "./components/paginas/ProgresoPedido";
-import SeleccionMesa from "./components/paginas/SeleccionMesa";
 import Comanda from "./components/paginas/Comanda";
 
 import Sidebar from "./components/ui/Sidebar";
@@ -49,7 +45,7 @@ function App() {
       <PedidoState>
         <div className="md:flex min-h-screen">
           {usuario ? <Sidebar /> : null}
-          <div className="w-full p-1">
+          <div className="w-full">
             <Routes>
               {usuario ? (
                 <Route exact path="/" element={<Ordenes />} />
@@ -60,7 +56,7 @@ function App() {
               <Route path="/menu" element={<Menu />} />
               <Route path="/nuevo-platillo" element={<NuevoPlatillo />} />
               <Route path="/completadas" element={<Completadas />} />
-              <Route path="/totales" element={<Totales />} />
+              {/* <Route path="/totales" element={<Totales />} /> */}
               <Route path="/mas-vendidos" element={<MasVendidos />} />
               <Route
                 path="/menu/editar/:nombre/:precio/:categoria/:descripcion"
@@ -69,20 +65,11 @@ function App() {
               />
 
               <Route path="/menu-digital" element={<MenuMostrar />} />
-              {/* <Route
-                path="/menu-digital/detalle-platillo"
-                element={<DetallePlatillo />}
-              /> */}
-              {/* <Route
-                path="/menu-digital/resumen-pedido"
-                element={<ResumenPedido />}
-              /> */}
 
               <Route
                 path="/menu-digital/progreso"
                 element={<ProgresoPedido />}
               />
-              <Route path="/menu-digital/mesa" element={<SeleccionMesa />} />
               <Route path="/menu-digital/comanda" element={<Comanda />} />
             </Routes>
           </div>
