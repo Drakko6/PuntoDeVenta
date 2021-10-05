@@ -2,12 +2,19 @@ import React, { useEffect } from "react";
 
 import "../../assets/styles.css";
 
-const Impresion = ({ setImprimir, ordenesImprimir, total }) => {
+const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
   useEffect(() => {
     setTimeout(() => {
       window.print();
+      //setImprimir(false);
+    }, 1000);
+
+    setTimeout(() => {
       setImprimir(false);
-    }, 500);
+    }, 7000);
+
+    //Este setTimeout es para poder imprimir y dar tiempo para hacerlo
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -126,6 +133,40 @@ const Impresion = ({ setImprimir, ordenesImprimir, total }) => {
           </tbody>
         ))}
         <tbody>
+          <tr className="border-collapse border-black border-t">
+            <td style={{ width: 20, maxWidth: 20 }}></td>
+            <td style={{ width: 20, maxWidth: 20 }}></td>
+            <td style={{ width: 110, maxWidth: 110 }}></td>
+            <td
+              className="font-bold text-sm border-collapse border-black border-t"
+              style={{ width: 30 }}
+            >
+              Subtotal:
+            </td>
+            <td
+              className="font-bold text-sm text-left border-collapse border-black border-t"
+              style={{ width: 50 }}
+            >
+              ${total - envio}
+            </td>
+          </tr>
+          <tr className="border-collapse border-black border-t">
+            <td style={{ width: 20, maxWidth: 20 }}></td>
+            <td style={{ width: 20, maxWidth: 20 }}></td>
+            <td style={{ width: 110, maxWidth: 110 }}></td>
+            <td
+              className="font-bold text-sm border-collapse border-black border-t"
+              style={{ width: 30 }}
+            >
+              Envío:
+            </td>
+            <td
+              className="font-bold text-sm text-left border-collapse border-black border-t"
+              style={{ width: 50 }}
+            >
+              ${envio}
+            </td>
+          </tr>
           <tr className="border-collapse border-black border-t">
             <td style={{ width: 20, maxWidth: 20 }}></td>
             <td style={{ width: 20, maxWidth: 20 }}></td>

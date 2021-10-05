@@ -18,7 +18,6 @@ const Ordenes = () => {
   // useBeforeunload(() => "Perderás las comandas no terminadas");
 
   const [showAlert, setShowAlert] = useState(false);
-  const [imprimir, setImprimir] = useState(false);
 
   const {
     iniciarNuevaOrden,
@@ -33,8 +32,10 @@ const Ordenes = () => {
 
   //state de ordenes
   const [comandas, setComandas] = useState([]);
+  const [imprimir, setImprimir] = useState(false);
   const [ordenesImprimir, setOrdenesImprimir] = useState({});
   const [total, setTotal] = useState(0);
+  const [envio, setEnvio] = useState(25);
 
   useEffect(() => {
     const obtenerOrdenes = async () => {
@@ -60,16 +61,7 @@ const Ordenes = () => {
     setComandas(comandas);
   }
 
-  const reiniciarMesa = (id, ordenes, total) => {
-    //comprobar que todas las ordenes están completadas
-    //si no, mostrar un alert y retornar
-    // const sinCompletar = ordenes.find((orden) => orden.completado === false);
-    // if (sinCompletar) {
-    //   setShowAlert(true);
-    //   return;
-    // } else {
-    //buscar la comanda con el id
-    //hacer update a lo activo
+  const reiniciarMesa = (id, ordenes, total, envio) => {
     firebase.db.collection("comandas").doc(id).update({
       activa: false,
     });
@@ -81,6 +73,7 @@ const Ordenes = () => {
 
     setOrdenesImprimir(ordenes);
     setTotal(total);
+    setEnvio(envio);
 
     setImprimir(true);
     // }
@@ -175,7 +168,8 @@ const Ordenes = () => {
                           reiniciarMesa(
                             comanda.id,
                             comanda.ordenes,
-                            comanda.total
+                            comanda.total,
+                            comanda.envio
                           )
                         }
                       >
@@ -211,6 +205,12 @@ const Ordenes = () => {
                       </div>
 
                       <div>
+                        <h3 className="text-center font-bold text-md">
+                          Subtotal: $ {comanda.total - comanda.envio}
+                        </h3>
+                        <h3 className="text-center font-bold text-md">
+                          Envío: $ {comanda.envio}
+                        </h3>
                         <h2 className="text-center font-bold text-xl">
                           Total comanda: $ {comanda.total}
                         </h2>
@@ -244,6 +244,7 @@ const Ordenes = () => {
           setImprimir={setImprimir}
           ordenesImprimir={ordenesImprimir}
           total={total}
+          envio={envio}
         />
       )}
     </>

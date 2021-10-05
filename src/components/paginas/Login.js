@@ -63,10 +63,10 @@ const Login = () => {
   return (
     <div className="p-10  justify-center bg-blue-700 w-full h-screen">
       <h1 className="text-3xl font-light mb-4 text-center text-white">
-        Menú Digital
+        Tortas Chícharo - Punto de Venta
       </h1>
       <h1 className="text-xl  mb-4 text-center text-gray-900">
-        Inicia sesión para poder modificar el menú
+        Inicia sesión para administrar las ventas
       </h1>
 
       <div className="flex justify-center mt-10">
@@ -87,6 +87,7 @@ const Login = () => {
                 value={formik.values.correo}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                autoComplete="off"
               />
             </div>
             {formik.touched.correo && formik.errors.correo ? (
@@ -114,6 +115,7 @@ const Login = () => {
                 value={formik.values.password}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                autoComplete="off"
               />
             </div>
 

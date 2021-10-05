@@ -8,10 +8,23 @@ import Divider from "@material-ui/core/Divider";
 
 import Orden from "./Orden";
 
-const ComandaCompletada = ({ comanda, cliente }) => {
+const ComandaCompletada = ({
+  comanda,
+  cliente,
+  setOrdenesImprimir,
+  setTotal,
+  setEnvio,
+  setImprimir,
+}) => {
+  const reimprimir = () => {
+    setOrdenesImprimir(comanda.ordenes);
+    setTotal(comanda.total);
+    setEnvio(comanda.envio);
+    setImprimir(true);
+  };
   return (
     <div className=" mb-2 ml-3 ">
-      <div className="grid grid-cols-6 p-2 shadow-md bg-white text-center items-center">
+      <div className="grid grid-cols-10 p-2 shadow-md bg-white text-center items-center">
         <p className="text-gray-700 font-bold col-span-1">{cliente.nombre}</p>
         <p className="text-gray-700 font-bold col-span-2">
           {cliente.domicilio}
@@ -23,10 +36,14 @@ const ComandaCompletada = ({ comanda, cliente }) => {
             minute: "2-digit",
           })}
         </p>
+        <p className="text-gray-700 font-bold col-span-1">
+          $ {comanda.total - comanda.envio}
+        </p>
+        <p className="text-gray-700 font-bold col-span-1">$ {comanda.envio}</p>
 
         <p className="text-gray-700 font-bold col-span-1">$ {comanda.total}</p>
 
-        <div className="flex  col-span-1">
+        <div className="flex  col-span-2">
           <Accordion style={{ width: "100%" }}>
             <AccordionSummary
               style={{ margin: 0 }}
@@ -52,6 +69,15 @@ const ComandaCompletada = ({ comanda, cliente }) => {
               ))}
             </AccordionDetails>
           </Accordion>
+        </div>
+
+        <div className="col-span-1">
+          <button
+            className="font-bold bg-teal-600 hover:bg-teal-500  p-2 text-white  uppercase m-2  "
+            onClick={() => reimprimir()}
+          >
+            Reimprimir Ticket
+          </button>
         </div>
       </div>
     </div>

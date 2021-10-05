@@ -135,6 +135,7 @@ const NuevoPlatillo = () => {
                     value={formik.values.nombre}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    autoComplete="off"
                   />
                 </div>
                 {formik.touched.nombre && formik.errors.nombre ? (
@@ -163,6 +164,7 @@ const NuevoPlatillo = () => {
                     value={formik.values.precio}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    autoComplete="off"
                   />
                 </div>
 
@@ -263,6 +265,7 @@ const NuevoPlatillo = () => {
                     value={formik.values.descripcion}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    autoComplete="off"
                   ></textarea>
                 </div>
 

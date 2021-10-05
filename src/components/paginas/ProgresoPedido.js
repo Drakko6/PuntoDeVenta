@@ -28,14 +28,23 @@ const ProgresoPedido = () => {
           total += orden.total;
         });
 
+        let envio = 25;
+        if (total >= 100) {
+          envio = 15;
+        }
+
         //  obtenemos la comanda de las comandas del día y actualizamos el total y ordenes
+        // metemos el envío y se lo sumamos al total
+        total += envio;
         const comandaObj = comandasDia.find((c) => c.idcomanda === idcomanda);
         comandaObj.total = total;
         comandaObj.ordenes = comanda;
+        comandaObj.envio = envio;
         guardarComanda(comandaObj);
         firebase.db.collection("comandas").doc(idcomanda).update({
           ordenes: comanda,
           total,
+          envio,
         });
 
         guardarComandasDia(comandaObj);
@@ -47,12 +56,19 @@ const ProgresoPedido = () => {
           total += orden.total;
         });
 
+        let envio = 25;
+        if (total >= 100) {
+          envio = 15;
+        }
+        total += envio;
+
         const comandaObj = {
           ordenes: comanda,
           activa: true,
           cliente: comanda[0].cliente,
           total,
           creada: Date.now(),
+          envio,
         };
 
         const com = await firebase.db.collection("comandas").add(comandaObj);
@@ -149,6 +165,7 @@ const ProgresoPedido = () => {
                 //esta es la comanda, actualizar
                 comanda.ordenes = comandaNueva.ordenes;
                 comanda.total = comandaNueva.total;
+                comanda.envio = comandaNueva.envio;
               }
             });
           } else {

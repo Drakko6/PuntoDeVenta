@@ -126,6 +126,9 @@ const FormUsuario = ({ formik }) => {
                             `domicilio`,
                             clients.find((c) => c.telefono === value).domicilio
                           );
+                        } else {
+                          formik.setFieldValue(`nombre`, "");
+                          formik.setFieldValue(`domicilio`, "");
                         }
                       } else {
                         formik.setFieldValue(`telefono`, "");
@@ -190,6 +193,7 @@ const FormUsuario = ({ formik }) => {
                     value={formik.values.domicilio}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    autoComplete="off"
                   />
                   {formik.touched.domicilio && formik.errors.domicilio && (
                     <FormHelperText className={classes.helper}>
@@ -209,9 +213,7 @@ const FormUsuario = ({ formik }) => {
             onConfirm={() => setShowAlert(false)}
             closeOnClickOutside
             cancelBtnBsStyle="danger"
-          >
-            Puede ir a la comanda para agregar una orden a ésta
-          </SweetAlert>
+          ></SweetAlert>
         </div>
       ) : (
         <h1 className="text-center flex">
