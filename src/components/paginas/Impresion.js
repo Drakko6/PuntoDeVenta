@@ -11,7 +11,7 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
 
     setTimeout(() => {
       setImprimir(false);
-    }, 7000);
+    }, 20 * 1000);
 
     //Este setTimeout es para poder imprimir y dar tiempo para hacerlo
 
