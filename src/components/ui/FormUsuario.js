@@ -135,7 +135,6 @@ const FormUsuario = ({ formik }) => {
                       }
                     }}
                     name="telefono"
-                    // value={formik.values.telefono}
                     onBlur={formik.handleBlur}
                     renderInput={(params) => (
                       <TextField
@@ -200,6 +199,25 @@ const FormUsuario = ({ formik }) => {
                       {formik.errors.domicilio}
                     </FormHelperText>
                   )}
+                </div>
+
+                <div className="mb-4">
+                  <label
+                    className="block text-gray-700 text-sm font-bold mb-2"
+                    htmlFor="nombreOrden"
+                  >
+                    Orden a nombre de: (opcional)
+                  </label>
+                  <input
+                    id="nombreOrden"
+                    placeholder="Nombre para la orden"
+                    type="text"
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline "
+                    value={formik.values.nombreOrden}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    autoComplete="off"
+                  />
                 </div>
               </form>
             </div>

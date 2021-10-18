@@ -11,7 +11,7 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
 
     setTimeout(() => {
       setImprimir(false);
-    }, 20 * 1000);
+    }, 15 * 1000);
 
     //Este setTimeout es para poder imprimir y dar tiempo para hacerlo
 
@@ -59,17 +59,11 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
               className="font-bold  text-sm border-collapse border-black border-t"
               style={{ width: 20, maxWidth: 20, wordBreak: "break-words" }}
             >
-              #
-            </th>
-            <th
-              className="font-bold  text-sm border-collapse border-black border-t"
-              style={{ width: 20, maxWidth: 20, wordBreak: "break-words" }}
-            >
               C
             </th>
             <th
               className="font-bold  text-sm border-collapse border-black border-t"
-              style={{ width: 150, maxWidth: 150, wordBreak: "break-words" }}
+              style={{ width: 190, maxWidth: 190, wordBreak: "break-words" }}
             >
               Producto
             </th>
@@ -91,15 +85,29 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
 
         {ordenesImprimir.map((orden) => (
           <tbody className="border-collapse border-black border-t border-b-2">
-            {orden.orden.map((producto, i) => (
-              <tr className="border-collapse">
-                <td
-                  style={{ width: 20, maxWidth: 20, wordBreak: "break-words" }}
-                  className=" font-bold text-sm border-collapse "
-                >
-                  {i === 0 ? orden.num : " "}
-                </td>
+            <tr className="border-collapse">
+              <td
+                style={{ width: 20, maxWidth: 20 }}
+                className=" font-bold text-sm border-collapse "
+              ></td>
+              <td
+                style={{ width: 200, maxWidth: 200 }}
+                className=" font-bold text-sm border-collapse "
+              >
+                {orden.nombreOrden ? orden.nombreOrden : orden.num}
+              </td>
+              <td
+                style={{ width: 30, maxWidth: 30 }}
+                className=" font-bold text-sm border-collapse "
+              ></td>
+              <td
+                style={{ width: 10, maxWidth: 10 }}
+                className=" font-bold text-sm border-collapse "
+              ></td>
+            </tr>
 
+            {orden.orden.map((producto) => (
+              <tr className="border-collapse">
                 <td
                   style={{ width: 20, maxWidth: 20, wordBreak: "break-words" }}
                   className=" font-normal text-sm border-collapse "
@@ -109,8 +117,8 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
                 <td
                   className="font-normal text-sm border-collapse "
                   style={{
-                    width: 150,
-                    maxWidth: 150,
+                    width: 190,
+                    maxWidth: 190,
                     wordBreak: "break-words",
                   }}
                 >
@@ -134,9 +142,8 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
         ))}
         <tbody>
           <tr className="border-collapse border-black border-t">
-            <td style={{ width: 20, maxWidth: 20 }}></td>
-            <td style={{ width: 20, maxWidth: 20 }}></td>
-            <td style={{ width: 110, maxWidth: 110 }}></td>
+            <td style={{ width: 40, maxWidth: 40 }}></td>
+            <td style={{ width: 130, maxWidth: 130 }}></td>
             <td
               className="font-bold text-sm border-collapse border-black border-t"
               style={{ width: 30 }}
@@ -151,9 +158,8 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
             </td>
           </tr>
           <tr className="border-collapse border-black border-t">
-            <td style={{ width: 20, maxWidth: 20 }}></td>
-            <td style={{ width: 20, maxWidth: 20 }}></td>
-            <td style={{ width: 110, maxWidth: 110 }}></td>
+            <td style={{ width: 40, maxWidth: 40 }}></td>
+            <td style={{ width: 130, maxWidth: 130 }}></td>
             <td
               className="font-bold text-sm border-collapse border-black border-t"
               style={{ width: 30 }}
@@ -168,9 +174,8 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
             </td>
           </tr>
           <tr className="border-collapse border-black border-t">
-            <td style={{ width: 20, maxWidth: 20 }}></td>
-            <td style={{ width: 20, maxWidth: 20 }}></td>
-            <td style={{ width: 110, maxWidth: 110 }}></td>
+            <td style={{ width: 40, maxWidth: 40 }}></td>
+            <td style={{ width: 130, maxWidth: 130 }}></td>
             <td
               className="font-bold text-sm border-collapse border-black border-t"
               style={{ width: 30 }}

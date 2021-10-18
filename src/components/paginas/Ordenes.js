@@ -193,7 +193,10 @@ const Ordenes = () => {
                               style={{ margin: 0 }}
                               expandIcon={<ExpandMoreIcon />}
                             >
-                              <Typography>Orden #{orden.num}</Typography>
+                              <Typography>
+                                Orden #{orden.num}{" "}
+                                {orden.nombreOrden && orden.nombreOrden}
+                              </Typography>
                             </AccordionSummary>
                             <AccordionDetails
                               style={{ width: "100%", padding: 0 }}

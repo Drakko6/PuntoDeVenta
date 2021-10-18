@@ -59,8 +59,12 @@ const ComandaCompletada = ({
             >
               {comanda.ordenes.map((orden, i) => (
                 <Fragment key={i}>
-                  <div className="flex">
-                    <p className="font-bold p-2 text-yellow-600">{orden.num}</p>
+                  <div className="block">
+                    <p className="font-bold p-1 text-yellow-600">
+                      {orden.nombreOrden
+                        ? orden.num + " " + orden.nombreOrden
+                        : orden.num}
+                    </p>
                     <Orden key={i} orden={orden} />
                   </div>
 

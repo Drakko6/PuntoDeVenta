@@ -43,6 +43,7 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
         "El domicilio del cliente es obligatorio"
       ),
       telefono: Yup.string().required("El teléfono del cliente es obligatorio"),
+      nombreOrden: Yup.string().default(""),
     }),
     onSubmit: async (cliente) => {
       try {
@@ -53,20 +54,23 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
           .then((querySnapshot) => {
             if (querySnapshot.docs.length === 0) {
               //si no existe, crear el registro
+              var { nombreOrden, ...clienteNuevo } = cliente;
+
               const registro = {
-                clientes: [cliente],
+                clientes: [clienteNuevo],
               };
               firebase.db.collection("clientes").add(registro);
             } else {
               //si existe el registro, sacar los clientes y agregar el cliente al array
               let clientesActualizados = querySnapshot.docs[0].data().clientes;
-              clientesActualizados.push(cliente);
+              clientesActualizados.push(clienteNuevo);
 
               firebase.db
                 .collection("clientes")
                 .doc(querySnapshot.docs[0].id)
                 .update({
-                  clientes: firebase.firestore.FieldValue.arrayUnion(cliente),
+                  clientes:
+                    firebase.firestore.FieldValue.arrayUnion(clienteNuevo),
                 });
             }
           })
@@ -75,7 +79,7 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
           });
 
         //  confirmar orden
-        confirmarOrden(cliente.telefono);
+        confirmarOrden(cliente.telefono, cliente.nombreOrden);
 
         //redireccionar
         navigate("/");
@@ -100,7 +104,7 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
     mostrarResumen(nuevoTotal);
   };
 
-  const confirmarOrden = async (telefono) => {
+  const confirmarOrden = async (telefono, nombreOrden) => {
     //crear objeto con el pedido, agregar el cliente
     const pedidoObj = {
       tiempoentrega: 0,
@@ -110,6 +114,7 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
       creado: Date.now(),
       num: contOrdenes + 1,
       cliente: telefono,
+      nombreOrden: nombreOrden ? nombreOrden : "",
     };
 
     try {
