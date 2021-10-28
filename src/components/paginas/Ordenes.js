@@ -36,6 +36,7 @@ const Ordenes = () => {
   const [ordenesImprimir, setOrdenesImprimir] = useState({});
   const [total, setTotal] = useState(0);
   const [envio, setEnvio] = useState(25);
+  const [domicilioActivo, setDomicilioActivo] = useState("");
 
   useEffect(() => {
     const obtenerOrdenes = async () => {
@@ -61,7 +62,7 @@ const Ordenes = () => {
     setComandas(comandas);
   }
 
-  const reiniciarMesa = (id, ordenes, total, envio) => {
+  const reiniciarMesa = (id, ordenes, total, envio, cliente) => {
     firebase.db.collection("comandas").doc(id).update({
       activa: false,
     });
@@ -75,6 +76,8 @@ const Ordenes = () => {
     setTotal(total);
     setEnvio(envio);
 
+    obtenerDom(cliente);
+
     setImprimir(true);
     // }
   };
@@ -84,7 +87,6 @@ const Ordenes = () => {
       .collection("clientes")
       .get()
       .then((querySnapshot) => {
-        //sacar los productos
         const clientes = querySnapshot.docs.map((doc) => {
           return {
             id: doc.id,
@@ -134,6 +136,27 @@ const Ordenes = () => {
       });
   };
 
+  const obtenerDom = async (cliente) => {
+    await firebase.db
+      .collection("clientes")
+      .get()
+      .then((querySnapshot) => {
+        const clientes = querySnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+
+        const client = clientes[0].clientes.find((c) => c.telefono === cliente);
+
+        setDomicilioActivo(client.domicilio);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       {!imprimir ? (
@@ -169,7 +192,8 @@ const Ordenes = () => {
                             comanda.id,
                             comanda.ordenes,
                             comanda.total,
-                            comanda.envio
+                            comanda.envio,
+                            comanda.cliente
                           )
                         }
                       >
@@ -248,6 +272,7 @@ const Ordenes = () => {
           ordenesImprimir={ordenesImprimir}
           total={total}
           envio={envio}
+          domicilio={domicilioActivo}
         />
       )}
     </>

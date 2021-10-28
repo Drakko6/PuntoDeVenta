@@ -52,9 +52,10 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
           .collection("clientes")
           .get()
           .then((querySnapshot) => {
+            let { nombreOrden, ...clienteNuevo } = cliente;
+
             if (querySnapshot.docs.length === 0) {
               //si no existe, crear el registro
-              var { nombreOrden, ...clienteNuevo } = cliente;
 
               const registro = {
                 clientes: [clienteNuevo],
@@ -65,6 +66,7 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
               let clientesActualizados = querySnapshot.docs[0].data().clientes;
               clientesActualizados.push(clienteNuevo);
 
+              console.log(clientesActualizados);
               firebase.db
                 .collection("clientes")
                 .doc(querySnapshot.docs[0].id)
@@ -217,7 +219,7 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
                 })}
 
                 <p className="font-bold text-center">
-                  Total a pagar: {total} ${" "}
+                  Total a pagar: {total} {"$ "}
                 </p>
 
                 <div>

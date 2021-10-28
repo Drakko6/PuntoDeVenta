@@ -2,7 +2,13 @@ import React, { useEffect } from "react";
 
 import "../../assets/styles.css";
 
-const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
+const Impresion = ({
+  setImprimir,
+  ordenesImprimir,
+  total,
+  envio,
+  domicilio,
+}) => {
   useEffect(() => {
     setTimeout(() => {
       window.print();
@@ -37,7 +43,7 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
       <p className="text-center">
         Tortas Chícharo
         <br />
-        <span className="text-sm font-normal mt-2">
+        <span className="text-sm font-normal">
           {new Date(Date.now()).toLocaleString("es-ES", {
             year: "numeric",
             month: "2-digit",
@@ -47,11 +53,15 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
             minute: "2-digit",
           })}
         </span>
-        <br />
-        <span className="text-xs font-normal mt-2">
+      </p>
+      <p className="text-left">
+        <span className="text-xs font-normal ">
           San Martin 83-A, Centro, 46400 Tequila, Jal.
         </span>
+        <br />
+        <span className="text-xs font-bold ">Dom. cliente: {domicilio}</span>
       </p>
+
       <table className="border-collapse border-black border-t mt-2">
         <thead>
           <tr>
@@ -94,7 +104,7 @@ const Impresion = ({ setImprimir, ordenesImprimir, total, envio }) => {
                 style={{ width: 200, maxWidth: 200 }}
                 className=" font-bold text-sm border-collapse "
               >
-                {orden.nombreOrden ? orden.nombreOrden : orden.num}
+                {orden.nombreOrden ? orden.nombreOrden : `Orden ${orden.num}`}
               </td>
               <td
                 style={{ width: 30, maxWidth: 30 }}
