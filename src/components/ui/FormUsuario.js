@@ -135,6 +135,7 @@ const FormUsuario = ({ formik }) => {
                       }
                     }}
                     name="telefono"
+                    ListboxProps={{ style: { maxHeight: "3em" } }}
                     onBlur={formik.handleBlur}
                     renderInput={(params) => (
                       <TextField
@@ -169,6 +170,7 @@ const FormUsuario = ({ formik }) => {
                     value={formik.values.nombre}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
+                    autoComplete="off"
                   />
                   {formik.touched.nombre && formik.errors.nombre && (
                     <FormHelperText className={classes.helper}>

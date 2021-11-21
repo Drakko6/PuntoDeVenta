@@ -8,16 +8,17 @@ const Impresion = ({
   total,
   envio,
   domicilio,
+  telefono,
+  cliente,
 }) => {
   useEffect(() => {
     setTimeout(() => {
       window.print();
-      //setImprimir(false);
     }, 1000);
 
     setTimeout(() => {
       setImprimir(false);
-    }, 15 * 1000);
+    }, 12 * 1000);
 
     //Este setTimeout es para poder imprimir y dar tiempo para hacerlo
 
@@ -40,26 +41,29 @@ const Impresion = ({
         className=" self-center ml-6"
       />
 
-      <p className="text-center">
-        Tortas Chícharo
-        <br />
-        <span className="text-sm font-normal">
-          {new Date(Date.now()).toLocaleString("es-ES", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit",
-            hour12: true,
-            hour: "2-digit",
-            minute: "2-digit",
-          })}
-        </span>
+      <p className="text-center">Tortas Chícharo</p>
+      <p className="text-center text-xs font-normal">
+        {new Date(Date.now()).toLocaleString("es-ES", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour12: true,
+          hour: "2-digit",
+          minute: "2-digit",
+        })}
       </p>
-      <p className="text-left">
-        <span className="text-xs font-normal ">
-          San Martin 83-A, Centro, 46400 Tequila, Jal.
-        </span>
-        <br />
-        <span className="text-xs font-bold ">Dom. cliente: {domicilio}</span>
+      <p className="text-left text-xs font-normal ">
+        San Martin 83-A, Centro, 46400 Tequila, Jal.
+      </p>
+      <p className="text-left text-xs ">
+        <span className="font-bold">Cliente:</span> {cliente}
+      </p>
+      <p className="text-left text-xs ">
+        <span className="font-bold">Dom:</span> {domicilio}
+      </p>
+      <p className="text-left text-xs  ">
+        <span className="font-bold">Tel: </span>
+        {telefono}
       </p>
 
       <table className="border-collapse border-black border-t mt-2">
@@ -138,13 +142,15 @@ const Impresion = ({
                   className="font-normal text-sm border-collapse  text-center"
                   style={{ width: 20, maxWidth: 20, wordBreak: "break-words" }}
                 >
-                  ${producto.precio}
+                  {"$"}
+                  {producto.precio}
                 </td>
                 <td
                   className="font-normal text-sm border-collapse  text-left"
                   style={{ width: 40, maxWidth: 40, wordBreak: "break-words" }}
                 >
-                  ${producto.total}
+                  {"$"}
+                  {producto.total}
                 </td>
               </tr>
             ))}
@@ -180,7 +186,8 @@ const Impresion = ({
               className="font-bold text-sm text-left border-collapse border-black border-t"
               style={{ width: 50 }}
             >
-              ${envio}
+              {"$"}
+              {envio}
             </td>
           </tr>
           <tr className="border-collapse border-black border-t">
@@ -196,7 +203,8 @@ const Impresion = ({
               className="font-bold text-sm text-left border-collapse border-black border-t"
               style={{ width: 50 }}
             >
-              ${total}
+              {"$"}
+              {total}
             </td>
           </tr>
         </tbody>

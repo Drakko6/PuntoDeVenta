@@ -219,7 +219,8 @@ const ResumenPedido = ({ setModalAbierto, cerrar }) => {
                 })}
 
                 <p className="font-bold text-center">
-                  Total a pagar: {total} {"$ "}
+                  Total a pagar: {"$"}
+                  {total}
                 </p>
 
                 <div>

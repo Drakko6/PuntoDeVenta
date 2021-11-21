@@ -37,6 +37,8 @@ const Ordenes = () => {
   const [total, setTotal] = useState(0);
   const [envio, setEnvio] = useState(25);
   const [domicilioActivo, setDomicilioActivo] = useState("");
+  const [telActivo, setTelActivo] = useState("");
+  const [clientActivo, setClientActivo] = useState("");
 
   useEffect(() => {
     const obtenerOrdenes = async () => {
@@ -151,6 +153,8 @@ const Ordenes = () => {
         const client = clientes[0].clientes.find((c) => c.telefono === cliente);
 
         setDomicilioActivo(client.domicilio);
+        setTelActivo(client.telefono);
+        setClientActivo(client.nombre);
       })
       .catch((err) => {
         console.log(err);
@@ -273,6 +277,8 @@ const Ordenes = () => {
           total={total}
           envio={envio}
           domicilio={domicilioActivo}
+          telefono={telActivo}
+          cliente={clientActivo}
         />
       )}
     </>

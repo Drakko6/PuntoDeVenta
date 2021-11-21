@@ -40,6 +40,9 @@ const Completadas = () => {
   const [ordenesImprimir, setOrdenesImprimir] = useState({});
   const [total, setTotal] = useState(0);
   const [envio, setEnvio] = useState(25);
+  const [domicilioActivo, setDomicilioActivo] = useState("");
+  const [telActivo, setTelActivo] = useState("");
+  const [clientActivo, setClientActivo] = useState("");
 
   const actualizaState = (e) => {
     let fechaActual = new Date(e.target.value);
@@ -130,6 +133,29 @@ const Completadas = () => {
     }
   }
 
+  const obtenerDom = async (cliente) => {
+    await firebase.db
+      .collection("clientes")
+      .get()
+      .then((querySnapshot) => {
+        const clientes = querySnapshot.docs.map((doc) => {
+          return {
+            id: doc.id,
+            ...doc.data(),
+          };
+        });
+
+        const client = clientes[0].clientes.find((c) => c.telefono === cliente);
+
+        setDomicilioActivo(client.domicilio);
+        setTelActivo(client.telefono);
+        setClientActivo(client.nombre);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <>
       {usuario ? (
@@ -198,6 +224,7 @@ const Completadas = () => {
                         setTotal={setTotal}
                         setEnvio={setEnvio}
                         setImprimir={setImprimir}
+                        obtenerDom={obtenerDom}
                       />
                     ))}
                   </div>
@@ -207,14 +234,17 @@ const Completadas = () => {
                       TOTALES:
                     </h1>
                     <h1 className="text-black  text-xl font-bold col-span-1 text-center">
-                      ${totalDia - totalEnvio}
+                      {"$"}
+                      {totalDia - totalEnvio}
                     </h1>
                     <h1 className="text-black  text-lg font-bold col-span-1 text-center">
-                      ${totalEnvio}
+                      {"$"}
+                      {totalEnvio}
                     </h1>
 
                     <h1 className="text-black  text-xl font-bold col-span-1 text-center">
-                      ${totalDia}
+                      {"$"}
+                      {totalDia}
                     </h1>
 
                     <h1 className="text-black  text-lg font-bold col-span-2 text-center">
@@ -234,6 +264,9 @@ const Completadas = () => {
               ordenesImprimir={ordenesImprimir}
               total={total}
               envio={envio}
+              domicilio={domicilioActivo}
+              telefono={telActivo}
+              cliente={clientActivo}
             />
           )}
         </>

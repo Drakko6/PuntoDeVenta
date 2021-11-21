@@ -15,13 +15,18 @@ const ComandaCompletada = ({
   setTotal,
   setEnvio,
   setImprimir,
+  obtenerDom,
 }) => {
   const reimprimir = () => {
     setOrdenesImprimir(comanda.ordenes);
     setTotal(comanda.total);
     setEnvio(comanda.envio);
     setImprimir(true);
+    obtenerDom(comanda.cliente);
+    //  TODO: HACER QUE EN LA REIMPRESION SALGA DOMICILIO Y TELEFONO TAMBIEN
+    // obtenerDom(cliente);
   };
+
   return (
     <div className=" mb-2 ml-3 ">
       <div className="grid grid-cols-10 p-2 shadow-md bg-white text-center items-center">
